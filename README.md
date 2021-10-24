@@ -1,28 +1,29 @@
 # TV-Script-Generation---RNN
 This project is part of Udacity nanodegree on Deep Learning. The objective is to generate own Seinfeld TV scripts using Recurrent Neural Networks (RNNs)
 
-You'll be using part of the Seinfeld dataset of scripts from 9 seasons. The Neural Network you'll build will generate a new ,"fake" TV script, based on patterns it recognizes in this training data.
+We'll be using part of the Seinfeld dataset of scripts from 9 seasons. The Neural Network we build will generate a new ,"fake" TV script, based on patterns it recognizes in the training data.
 
 ### Get the Data
 The data is already provided for you in ./data/Seinfeld_Scripts.txt
-
+The dataset consists of:
+Roughly the number of unique words: 46367
+Number of lines: 109233
+Average number of words in each line: 5.54
 
 ## Implement Pre-processing Functions
 The first thing to do to any dataset is pre-processing. We implement the following pre-processing functions as below:
-
 - Lookup Table
 - Tokenize Punctuation
 
 ### Lookup Table
-To create a word embedding, you first need to transform the words to ids. In this function, create two dictionaries:
+To create a word embedding, we first transform the words to ids. In this function, we create two dictionaries:
  - Dictionary to go from the words to an id, we'll call vocab_to_int
  - Dictionary to go from the id to word, we'll call int_to_vocab
 Return these dictionaries in the following tuple (vocab_to_int, int_to_vocab)
 
-
 ## Tokenize Punctuation
-We'll be splitting the script into a word array using spaces as delimiters. However, punctuations like periods and exclamation marks can create multiple ids for the same word. For example, "bye" and "bye!" would generate two different word ids.
-Implement the function token_lookup to return a dict that will be used to tokenize symbols like "!" into "||Exclamation_Mark||". Create a dictionary for the following symbols where the symbol is the key and value is the token:
+We have split the script into a word array using spaces as delimiters. However, punctuations like periods and exclamation marks can create multiple ids for the same word. For example, "bye" and "bye!" would generate two different word ids.
+We have iplemented the function token_lookup to return a dict that will be used to tokenize symbols like "!" into "||Exclamation_Mark||". Create a dictionary for the following symbols where the symbol is the key and value is the token:
 - Period ( . )
 - Comma ( , )
 - Quotation Mark ( " )
@@ -45,17 +46,17 @@ data = TensorDataset(feature_tensors, target_tensors)
 data_loader = torch.utils.data.DataLoader(data, 
                                           batch_size=batch_size)
 #### Batching
-Implement the batch_data function to batch words data into chunks of size batch_size using the TensorDataset and DataLoader classes.
-Batch words using the DataLoader, create feature_tensors and target_tensors of the correct size and content for a given sequence_length.
+We have implemented the batch_data function to batch words data into chunks of size batch_size using the TensorDataset and DataLoader classes.
+Batch words using the DataLoader, created feature_tensors and target_tensors of the correct size and content for a given sequence_length.
 
 #### Sizes
-Your sample_x should be of size (batch_size, sequence_length) or (10, 5) in this case and sample_y should just have one dimension: batch_size (10).
+The sample_x (feature) is of size (batch_size, sequence_length) or (10, 5) in this case and sample_y (target) just has one dimension: batch_size (10).
 
 #### Values
 You should also notice that the targets, sample_y, are the next value in the ordered test_text data. So, for an input sequence [ 28,  29,  30,  31,  32] that ends with the value 32, the corresponding output should be 33.
 
 #### Build the Neural Network
-Implement an RNN using PyTorch's Module class. You may choose to use a GRU or an LSTM. To complete the RNN, you'll have to implement the following functions for the class:
+We have implemented an RNN using PyTorch's Module class. We have selected LSTM for the same and implemented the following functions for the class:
 
 __init__ - The initialize function.
 """
